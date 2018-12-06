@@ -7,11 +7,8 @@ prof={}
 total_line=0
 diffvalue=0
 populate_output=[]
-maxpair=[]
-minpair=[]
-minpair_yr=[]
-maxpair_yr=[]
 
+# Read file 
 
 with open(filename,newline="",mode="r",) as csvfile:
 	#Get the Total count of lines in the File including the header
@@ -20,9 +17,10 @@ with open(filename,newline="",mode="r",) as csvfile:
 	total_line=rowcnt-1
 	populate_output.append("Financial Analysis") 
 	populate_output.append("----------------------------")
-	populate_output.append("Total months =" + str(total_line))
-	
+	populate_output.append("Total months :" + str(total_line))
+	# Take the pointer to the begining of the file
 	csvfile.seek(0,0)
+	# read csv file using  Dictionary
 	reader = csv.DictReader(csvfile, delimiter=",")
 	
 	for row in reader :
@@ -49,26 +47,16 @@ with open(filename,newline="",mode="r",) as csvfile:
 	
 	# sort the dictionary by value	
 	sorted_x =  sorted(prof.items(),key=operator.itemgetter(1))
-	# the 1st item in the list gives the least profit and the last item in the list gives the gre
-
-	minpair=list((sorted_x[0]))
-	minpair_yr=minpair[0].split("-")
-	
-	maxpair=list((sorted_x[(len(sorted_x)-1)]))
-	maxpair_yr=maxpair[0].split("-")
-	populate_output.append(f"Greatest Increase in Profits:  {maxpair_yr[0]}-20{maxpair_yr[1]}  ($  {str(maxpair[1])} )" )
-	populate_output.append(f"Greatest Decrease in Profits:  {minpair_yr[0]}-20{minpair_yr[1]}  ($  {str(minpair[1])})")
+	#store for output
+	populate_output.append(f"Greatest Increase in Profits :{sorted_x[(len(sorted_x)-1)][0][:4]}20{sorted_x[(len(sorted_x)-1)][0][4:6]} (${str(sorted_x[len(sorted_x)-1][1])})")
+	populate_output.append(f"Greatest Decrease in Profits :{sorted_x[0][0][:4]}20{sorted_x[0][0][4:6]}  (${str(sorted_x[0][1])} )")
 	for i in range(len(populate_output)):
 		print(populate_output[i])
-		#print("\r\n")
 
 output_file = "C:/DataAnalytics/pybank.txt"
-
+#Write output to Txt file
 with open(output_file,"w") as datafile:
-
-	#writer=csv.writer(datafile)
-	#writer.writerow(header)
-	#writer.writerows(populate_output)
 	for i in range(len(populate_output)):
 		datafile.write(populate_output[i]) 
 		datafile.write("\r\n") 
+ 
