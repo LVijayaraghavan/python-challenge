@@ -62,4 +62,4 @@
   -------------------------
   ```
 
-* In addition, your final script should both print the analysis to the terminal and export a text file with the results.
+* In addition,  final script should both print the analysis to the terminal and export a text file with the results.
